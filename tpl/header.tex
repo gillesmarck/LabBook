@@ -1,0 +1,13 @@
+\renewcommand{\lbkDate}{YYYYMMDD}
+
+\renewcommand{\lbkFig}[3][0.75]{
+    \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=#1\textwidth]{LBKFIGPATH#2}
+    \caption{#3}
+    \label{fig:#2_\lbkDate}
+    \end{figure}
+}
+
+\section{LBKSECTION}
+\label{sec:\lbkDate}

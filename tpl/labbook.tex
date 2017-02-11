@@ -1,0 +1,35 @@
+\documentclass{book}
+
+% PACKAGES ---------------------------------------------------------------------
+
+\usepackage{graphicx}
+
+% LABBOOK COMMANDS -------------------------------------------------------------
+
+\newcommand{\lbkDate}{YYYYMMDD}
+
+\newcommand{\lbkFig}[3][0.75]{
+    \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=#1\textwidth]{#2}
+    \caption{#3}
+    \label{fig:#2_\lbkDate}
+    \end{figure}
+}
+
+\newcommand{\lbkRef}[1]{\ref{#1_\lbkDate}}
+
+% DOCUMENT PARAMETERS ----------------------------------------------------------
+
+\title{\textbf{LBKTITLE}\\{\normalsize \textit{LBKSUBTITLE}}}
+\author{LBKAUTHOR}
+
+% DOCUMENT ---------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+
+LBKINPUT
+
+\end{document}
