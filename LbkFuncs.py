@@ -89,7 +89,7 @@ class LbkFuncs:
         print("> Clean folder ... ", end="")
 
         # extensions of file to delete
-        exts = ['.aux', '.toc', '.lof', '.log', '.out']
+        exts = ['.aux', '.toc', '.lof', '.log', '.out', '.gz']
         
         try:
 

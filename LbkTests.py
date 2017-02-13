@@ -82,7 +82,7 @@ def test_LbkIO_str2date():
                 print(LbkIO.date2str(test['ref']) + "\" result, ", end="")
                 print("got \"", end="");print(res, end="");print("\" instead.")
                 print("test [LbkIO, str2date] failed. exit.")
-                sys.exit(os.EX_DATAERR)
+                sys.exit(exitstatus.ExitStatus.failure)
 
         else :
 
@@ -99,7 +99,7 @@ def test_LbkIO_str2date():
                 print()
                 print("\""+test['str']+"\" should have risen an IODateExcept.")
                 print("test [LbkIO, str2date] failed. exit.")
-                sys.exit(os.EX_DATAERR)
+                sys.exit(exitstatus.ExitStatus.failure)
 
     print("ok")
 
@@ -127,7 +127,7 @@ def tests(startDate, endDate):
 if __name__ == "__main__":
    
     tests(None, None)
-    sys.exit(os.EX_OK)
+    sys.exit(exitstatus.ExitStatus.success)
 
 
    

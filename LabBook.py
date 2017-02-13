@@ -5,6 +5,7 @@ import getopt
 import os
 import sys
 import traceback
+import exitstatus
 
 import LbkTests
 
@@ -32,7 +33,7 @@ def main(argv):
     except getopt.GetoptError as e:
         print(e)
         lbkIO.usage()
-        sys.exit(os.EX_DATAERR)
+        sys.exit(exitstatus.ExitStatus.failure)
 
     # converting options ----------------------------------------------------- #
     optargs = {}
@@ -41,15 +42,15 @@ def main(argv):
         # converting option
         if getOpt == '-h':
             lbkIO.usage()
-            sys.exit(os.EX_OK)
+            sys.exit(exitstatus.ExitStatus.success)
 
         if getOpt == '--help':
             lbkIO.help()
-            sys.exit(os.EX_OK) 
+            sys.exit(exitstatus.ExitStatus.success) 
 
         if getOpt in ('-v', '--version'):
             lbkIO.info_version()
-            sys.exit(os.EX_OK)
+            sys.exit(exitstatus.ExitStatus.success)
 
         opt =   Opt[getOpt[2:]]   if getOpt[0:2]=='--'\
                 else Opt([opt.name[0] for opt in Opt].index(getOpt[1:]))
@@ -60,7 +61,7 @@ def main(argv):
 
         except IODateExcept as e:
             e.info()
-            exit(os.EX_USAGE)
+            sys.exit(exitstatus.ExitStatus.failure)
 
         # output
         optargs[opt] = arg
@@ -69,7 +70,7 @@ def main(argv):
     if not(len(getArgs) == 1):
         print("LabBook takes only one argument.")
         lbkIO.usage()
-        exit(os.EX_USAGE)
+        exit(exitstatus.ExitStatus.failure)
 
     # looking for valid arguments
     getArg = getArgs[0]
@@ -77,7 +78,7 @@ def main(argv):
     if not(getArg in [ mode.name for mode in Mode ]):
         print("Unknown argument.")
         lbkIO.help()
-        exit(os.EX_USAGE)
+        exit(exitstatus.ExitStatus.failure)
 
     mode = Mode[getArg]
 
@@ -90,7 +91,7 @@ def main(argv):
     # except (InitException, CleanException) as e:
     except (IOModeExcept, IODatesExcept) as e:
         e.info()
-        exit(os.EX_USAGE)
+        exit(exitstatus.ExitStatus.failure)
 
     # calling main function -------------------------------------------------- #
     lbkFuncs = LbkFuncs()
@@ -101,20 +102,18 @@ def main(argv):
 
     except ModeExcept as e:
         e.info()
-        exit(os.EX_DATAERR)
+        exit(exitstatus.ExitStatus.failure)
 
     except Exception as e:
         print("unknown internal error")
         print(e)
         #traceback.print_exc()
-        exit(os.EX_DATAERR)
+        exit(exitstatus.ExitStatus.failure)
 
-    return os.EX_OK
+    return exitstatus.ExitStatus.success
 
 # Main ======================================================================= #
 if __name__ == "__main__":
    
     main(sys.argv[1:])
-    sys.exit(os.EX_OK)
-
-
+    sys.exit(exitstatus.ExitStatus.success)
